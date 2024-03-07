@@ -1,0 +1,164 @@
+﻿@using Employee.Web.Models;
+@model EmployeeDto
+
+<div class="modal modal-xl fade" tabindex="-1" id="myModel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="employeeForm" method="post" action="Edit" enctype="multipart/form-data">
+                    <div class="border p-3 mt-4">
+                        <div class="row pb-2">
+                            <h2 class="text-primary">Add Employee</h2>
+                            </hr>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.FirstName)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.TextBoxFor(m => m.FirstName)
+                                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.LastName)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.TextBoxFor(m => m.LastName)
+                                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.Email)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.TextBoxFor(m => m.Email)
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { type = "email" , @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.Gender)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.RadioButtonFor(m => m.Gender,"Male") Male
+                                        @Html.RadioButtonFor(m => m.Gender,"Female") Female
+                                        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.DOB)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.EditorFor(m => m.DOB )
+                                        @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.JoiningDate)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.EditorFor(m => m.JoiningDate)
+                                        @Html.ValidationMessageFor(m => m.JoiningDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.Designation)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.DropDownListFor(m => m.Designation,new SelectList(Enum.GetValues(typeof(Designation))),"Select Designation")
+                                        @Html.ValidationMessageFor(m => m.Designation, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.Image)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.TextBoxFor(m => m.Image ,new {type="file",@id="fImage"})</br>
+                                        <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
+                                        @Html.ValidationMessageFor(m => m.Image, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        <label for="dlSkill">Skill</label>
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.HiddenFor(m => m.SkillName)
+                                        <input type="text" id="txtSkill">
+                                        <button type="button" id="btnAdd" class="p-2">Add</button>
+                                        <ul id="skillAdded">
+                                            @if (Model != null)
+                                            {
+                                                @foreach (var item in Model.Skills)
+                                                {
+                                                    <script>updateSkills(`@item`)</script>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row g-3">
+                                    <div class="col-3">
+                                        @Html.LabelFor(m => m.Description)
+                                    </div>
+                                    <div class="col-9">
+                                        @Html.TextAreaFor(m => m.Description)
+                                        @Html.ValidationMessageFor(m => m.Description,"", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-save="modal">Save</button>
+                            <a asp-controller="Employee" asp-action="Index" class="btn btn-outline-secondary mx-2">Back To List</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <partial name="_PreviewImage" />
+    <partial name="_ValidationScriptsPartial" />
+}

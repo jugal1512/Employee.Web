@@ -15,6 +15,7 @@
         var url = "/employee/" + actionUrl;
         var sendData = form.serialize();
         $.post(url, sendData).done(function (data) {
+            window.location = "/employee/index";
             PlaceHolderElement.find('.modal').modal('hide');
         });
     });

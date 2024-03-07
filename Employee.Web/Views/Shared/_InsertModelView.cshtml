@@ -107,14 +107,7 @@
                                     </div>
                                     <div class="col-9">
                                         @Html.TextBoxFor(m => m.Image ,new {type="file",@id="fImage"})</br>
-                                        @if (Model != null)
-                                        {
-                                            <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
-                                        }
-                                        else
-                                        {
-                                            <img id="previewImage" src="#" alt="Profile photo" height="100px" width="100px">
-                                        }
+                                        <img id="previewImage" src="#" alt="Profile photo" height="100px" width="100px">
                                         @Html.ValidationMessageFor(m => m.Image, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
