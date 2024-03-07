@@ -29,7 +29,7 @@ namespace Employee.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert(EmployeeDto employeeDto, IFormFile Image)
+        public async Task<IActionResult> Insert(EmployeeDto employeeDto,IFormFile Image)
         {
             if (Image != null)
             {
