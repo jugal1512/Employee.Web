@@ -65,3 +65,13 @@ function deleteSweetAlert(url)
         }
     });
 }
+
+$(document).ready(function () {
+    $("#fImage").change(function () {
+        const [file] = fImage.files;
+        if (file) {
+            previewImage.src = URL.createObjectURL(file);
+        }
+    });
+});
+
