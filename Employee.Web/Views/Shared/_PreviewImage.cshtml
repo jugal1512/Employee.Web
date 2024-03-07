@@ -1,8 +1,8 @@
 ﻿<script type="text/javascript">
-    $(document).ready(function(){
-        $('#Image').change(function(){
-            const [file] = Image.files;
-            if(file){
+    $(document).ready(function () {
+        $("#fImage").change(function () {
+            const [file] = fImage.files;
+            if (file) {
                 previewImage.src = URL.createObjectURL(file);
             }
         });

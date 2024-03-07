@@ -16,5 +16,6 @@ namespace Employee.EF
         }
 
         public DbSet<EmployeeModel> Employees { get; set; }
+        public DbSet<Skill> Skills { get; set; }
     }
 }

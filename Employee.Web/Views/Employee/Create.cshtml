@@ -102,7 +102,7 @@
                         @Html.LabelFor(m => m.Image)
                     </div>
                     <div class="col-9">
-                        @Html.TextBoxFor(m => m.Image ,new {type="file"})</br>
+                        @Html.TextBoxFor(m => m.Image ,new {type="file",@id="fImage"})</br>
                         @if (Model != null)
                         {
                             <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
@@ -123,17 +123,11 @@
                         <label for="dlSkill">Skill</label>
                     </div>
                     <div class="col-9">
- @*                       @Html.HiddenFor(m => m.SkillName)
+                        @Html.HiddenFor(m => m.SkillName)
                         <input type="text" id="txtSkill">
                         <button type="button" id="btnAdd" class="p-2">Add</button>
                         <ul id="skillAdded">
-                            @if (Model != null)
-                            {
-                                @foreach (var item in Model.AllSkill)
-                                {
-                                    <script>updateSkills(`@item`)</script>
-                                }
-                            }*@
+                            
                         </ul>
                     </div>
                 </div>

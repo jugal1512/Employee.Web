@@ -49,6 +49,24 @@
                 <a href="#" onclick=deleteSweetAlert('/employee/delete/@item.Id')><i class="fa-solid fa-trash" style="color: #e00b0b;"></i></a>
             </td>
         </tr>
+            <tr class="hiddenRow">
+                <td>
+                    @Html.LabelFor(modelItem => item.Description) :-
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.LabelFor(modelItem => item.DOB) :-
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.LabelFor(modelItem => item.JoiningDate) :-
+                    @Html.DisplayFor(modelItem => item.JoiningDate)
+                </td>
+                <td>
+                    @Html.LabelFor(modelItem => item.SkillName) :-
+                    @Html.DisplayFor(modelItem => item.SkillName)
+                </td>
+            </tr>
 }
     </tbody>
 </table>

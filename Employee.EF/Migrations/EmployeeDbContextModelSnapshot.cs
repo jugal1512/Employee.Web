@@ -60,6 +60,43 @@ namespace Employee.EF.Migrations
 
                     b.ToTable("Employees");
                 });
+
+            modelBuilder.Entity("Employee.Domain.Employee.Skill", b =>
+                {
+                    b.Property<int>("SkillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SkillName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SkillId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("Employee.Domain.Employee.Skill", b =>
+                {
+                    b.HasOne("Employee.Domain.Employee.EmployeeModel", "Employee")
+                        .WithMany("Skills")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Employee.Domain.Employee.EmployeeModel", b =>
+                {
+                    b.Navigation("Skills");
+                });
 #pragma warning restore 612, 618
         }
     }

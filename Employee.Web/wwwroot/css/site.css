@@ -20,3 +20,34 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.employeeForm {
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+#skillAdded {
+    padding-left: 1px;
+    width: 180px;
+}
+
+.skillLists {
+    padding: 5px;
+    list-style: none;
+    position: relative;
+    color: black;
+    font-size: 19px;
+    text-align: left;
+    border: 1px solid black;
+}
+
+.fa-xmark {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    top: 10px;
+}
+
+.hiddenRow {
+    display: none;
+}

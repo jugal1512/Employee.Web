@@ -33,12 +33,12 @@ namespace Employee.EF.Repositories
 
         public async Task<EmployeeModel> GetEmployeeById(int? id)
         {
-            return await _employeeDbContext.Employees.AsNoTracking().Where(e => e.Id == id).FirstOrDefaultAsync();
+            return await _employeeDbContext.Employees.AsNoTracking().Where(e => e.Id == id).Include(x => x.Skills).FirstOrDefaultAsync();
         }
 
         public async Task<List<EmployeeModel>> GetEmployees()
         {
-            return await _employeeDbContext.Employees.AsNoTracking().ToListAsync();
+            return await _employeeDbContext.Employees.AsNoTracking().Include(x => x.Skills).ToListAsync();
         }
 
         public async Task<EmployeeModel> UpdateEmployee(int? id, EmployeeModel employeeModel)

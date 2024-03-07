@@ -22,8 +22,11 @@ namespace Employee.Web
             services.AddDbContext<EmployeeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<EmployeeService>();
+            services.AddScoped<SkillService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<ISkillService, SkillService>();
+            services.AddTransient<ISkillRepository, SkillRepository>();
         }
 
         public void Configure(WebApplication app,IWebHostEnvironment webHost)

@@ -8,10 +8,12 @@ namespace Employee.Web.Controllers
     public class EmployeeController : Controller
     {
         private readonly EmployeeService _employeeService;
+        private readonly SkillService _skillService;
         private readonly IMapper _mapper;
-        public EmployeeController(EmployeeService employeeService,IMapper mapper)
+        public EmployeeController(EmployeeService employeeService,SkillService skillService,IMapper mapper)
         {
             _employeeService = employeeService;
+            _skillService = skillService;
             _mapper = mapper;
         }
         public async Task<IActionResult> Index()
@@ -27,7 +29,7 @@ namespace Employee.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeModel employeeModel,IFormFile Image)
+        public async Task<IActionResult> Create(EmployeeDto employeeDto,IFormFile Image)
         {
             if (Image != null)
             {
@@ -37,16 +39,28 @@ namespace Employee.Web.Controllers
                 {
                     Image.CopyTo(filestream);
                 }
-                employeeModel.Image = newFileName;
+                employeeDto.Image = newFileName;
             }
-            if (ModelState.IsValid)
+            List<Skill> SkillItems = new List<Skill>();
+            if (!string.IsNullOrEmpty(employeeDto.SkillName))
             {
-                var AddEmployee = await _employeeService.AddEmployee(employeeModel);
-                var AddMapper = _mapper.Map<EmployeeDto>(AddEmployee);
-                TempData["success"] = "Employee Create Successfully.";
-                return RedirectToAction("Index");
+                var skillArray = employeeDto.SkillName.Split(",");
+                if (skillArray.Length > 0)
+                {
+                    foreach (var item in skillArray)
+                    {
+                        Skill skill = new Skill();
+                        skill.SkillName = item;
+                        SkillItems.Add(skill);
+                    }
+                }
             }
-            return View();
+            var employeeModel = _mapper.Map<EmployeeModel>(employeeDto);
+            employeeModel.Skills = SkillItems;
+            var AddEmployee = await _employeeService.AddEmployee(employeeModel);
+            _mapper.Map<EmployeeDto>(AddEmployee);
+            TempData["success"] = "Employee Create Successfully.";
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Update(int? id)
@@ -61,13 +75,14 @@ namespace Employee.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int? id,EmployeeModel employeeModel,IFormFile Image)
+        public async Task<IActionResult> Update(int? id,EmployeeDto employeeDto,IFormFile Image)
         {
             var getEmployee = await _employeeService.GetEmployeeById(id);
-            var oldImage = getEmployee.Image;
+            var getEmployeeMapper = _mapper.Map<EmployeeDto>(getEmployee); 
+            var oldImage = getEmployeeMapper.Image;
             if (Image != null)
             {
-                var oldImagepath = Path.Combine("wwwroot/uploads", getEmployee.Image);
+                var oldImagepath = Path.Combine("wwwroot/uploads", getEmployeeMapper.Image);
                 if (System.IO.File.Exists(oldImagepath))
                 {
                     System.IO.File.Delete(oldImagepath);
@@ -78,14 +93,34 @@ namespace Employee.Web.Controllers
                 {
                     Image.CopyTo(filestream);
                 }
-                employeeModel.Image = newFileName;
+                employeeDto.Image = newFileName;
             }
             else
             {
-                employeeModel.Image = oldImage;
+                employeeDto.Image = oldImage;
             }
+            if (!string.IsNullOrEmpty(getEmployeeMapper.SkillName))
+            {
+                await _skillService.DeleteSkill(id);
+            }
+            List<Skill> SkillItems = new List<Skill>();
+            if (!string.IsNullOrEmpty(employeeDto.SkillName))
+            {
+                var skillArray = employeeDto.SkillName.Split(",");
+                if (skillArray.Length > 0)
+                {
+                    foreach (var item in skillArray)
+                    {
+                        Skill skill = new Skill();
+                        skill.SkillName = item;
+                        SkillItems.Add(skill);
+                    }
+                }
+            }
+            var employeeModel = _mapper.Map<EmployeeModel>(employeeDto);
+            employeeModel.Skills = SkillItems;
             var updateEmployee = await _employeeService.UpdateEmployee(id,employeeModel);
-            var updateMapper = _mapper.Map<EmployeeDto>(updateEmployee);
+            _mapper.Map<EmployeeDto>(updateEmployee);
             TempData["success"] = "Employee Update Successfully.";
             return RedirectToAction("Index");
         }

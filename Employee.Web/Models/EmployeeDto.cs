@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Employee.Domain.Employee;
+using System.ComponentModel.DataAnnotations;
 
 namespace Employee.Web.Models
 {
@@ -22,6 +23,8 @@ namespace Employee.Web.Models
         public string? Image { get; set; }
         [Required]
         public string? Description { get; set; }
+        public string? SkillName { get; set; }
+        public List<string>? Skills { get; set; }
     }
 
     enum Designation

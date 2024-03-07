@@ -24,6 +24,12 @@ namespace Employee.EF.Configuration
             builder.Property(x => x.JoiningDate);
             builder.Property(x => x.Image);
             builder.Property(x => x.Description);
+
+            builder
+                .HasMany(x => x.Skills)
+                .WithOne(x => x.Employee)
+                .HasForeignKey(x => x.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
