@@ -16,13 +16,53 @@ namespace Employee.Web.Controllers
             _skillService = skillService;
             _mapper = mapper;
         }
+
         public async Task<IActionResult> Index()
         {
             var Employees = await _employeeService.GetEmployees();
             var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
             return View(EmployeeMapper);
         }
+        public IActionResult Insert()
+        {
+            return PartialView("_ModelView");
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Insert(EmployeeDto employeeDto, IFormFile Image)
+        {
+            if (Image != null)
+            {
+                var newFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
+                var path = Path.Combine("wwwroot/uploads/", newFileName);
+                using (var filestream = new FileStream(path, FileMode.Create))
+                {
+                    Image.CopyTo(filestream);
+                }
+                employeeDto.Image = newFileName;
+            }
+            List<Skill> SkillItems = new List<Skill>();
+            if (!string.IsNullOrEmpty(employeeDto.SkillName))
+            {
+                var skillArray = employeeDto.SkillName.Split(",");
+                if (skillArray.Length > 0)
+                {
+                    foreach (var item in skillArray)
+                    {
+                        Skill skill = new Skill();
+                        skill.SkillName = item;
+                        SkillItems.Add(skill);
+                    }
+                }
+            }
+            var employeeModel = _mapper.Map<EmployeeModel>(employeeDto);
+            employeeModel.Skills = SkillItems;
+            var AddEmployee = await _employeeService.AddEmployee(employeeModel);
+            _mapper.Map<EmployeeDto>(AddEmployee);
+            TempData["success"] = "Employee Create Successfully.";
+            //return PartialView("_ModelView");
+            return RedirectToAction("Index");
+        }
         public IActionResult Create()
         {
             return View();
