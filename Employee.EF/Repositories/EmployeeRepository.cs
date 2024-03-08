@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,6 +40,12 @@ namespace Employee.EF.Repositories
         public async Task<List<EmployeeModel>> GetEmployees()
         {
             return await _employeeDbContext.Employees.AsNoTracking().Include(x => x.Skills).ToListAsync();
+        }
+
+        public async Task<List<EmployeeModel>> SearchEmployee(string? searchString)
+        {
+            Expression<Func<EmployeeModel, bool>> predicate = x => x.FirstName.Contains(searchString);
+            return await _employeeDbContext.Employees.Where(predicate).Include(x => x.Skills).ToListAsync();
         }
 
         public async Task<EmployeeModel> UpdateEmployee(int? id, EmployeeModel employeeModel)

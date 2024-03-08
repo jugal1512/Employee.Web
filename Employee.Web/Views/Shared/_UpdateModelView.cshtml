@@ -24,7 +24,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="employeeForm" method="post" action="Edit" enctype="multipart/form-data">
+                    <form class="employeeForm" method="post" action="Edit" employeeId="@(Model != null?Model.Id:null)" enctype="multipart/form-data">
                         <div class="border p-3 mt-4">
                             <div class="row pb-2">
                                 <h2 class="text-primary">Add Employee</h2>
@@ -122,7 +122,14 @@
                                         </div>
                                         <div class="col-9">
                                             @Html.TextBoxFor(m => m.Image ,new {type="file",@id="fImage"})</br>
-                                            <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
+                                            @if (Model != null)
+                                            {
+                                                <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
+                                            }
+                                            else
+                                            {
+                                                <img id="previewImage" src="#" alt="Profile photo" height="100px" width="100px">
+                                            }
                                             @Html.ValidationMessageFor(m => m.Image, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -163,7 +170,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info" data-save="modal">Save</button>
+                                <button type="button" class="btn btn-info" data-save="modal-update">Save</button>
                                 <button type="button" class="btn btn-outline-secondary mx-2" data-bs-dismiss="modal" aria-label="Close">Back To List</button>
                             </div>
                         </div>

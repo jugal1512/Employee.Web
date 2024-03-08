@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,11 @@ namespace Employee.Domain.Employee
         public async Task<List<EmployeeModel>> GetEmployees()
         {
             return await _employeeRepository.GetEmployees();
+        }
+
+        public Task<List<EmployeeModel>> SearchEmployee(string? searchString)
+        {
+            return _employeeRepository.SearchEmployee(searchString);
         }
 
         public async Task<EmployeeModel> UpdateEmployee(int? id, EmployeeModel employeeModel)

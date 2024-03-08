@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace Employee.Domain.Employee
         public Task<EmployeeModel> AddEmployee(EmployeeModel employeeModel);
         public Task<EmployeeModel> DeleteEmployee(int? id);
         public Task<EmployeeModel> UpdateEmployee(int? id, EmployeeModel employeeModel);
+        public Task<List<EmployeeModel>> SearchEmployee(string? searchString);
     }
 }

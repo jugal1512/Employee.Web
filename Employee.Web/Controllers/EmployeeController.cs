@@ -2,6 +2,7 @@
 using Employee.Domain.Employee;
 using Employee.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace Employee.Web.Controllers
 {
@@ -17,11 +18,20 @@ namespace Employee.Web.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchString)
         {
-            var Employees = await _employeeService.GetEmployees();
-            var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
-            return View(EmployeeMapper);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var searchEmployee = await _employeeService.SearchEmployee(searchString);
+                var searchMapper = _mapper.Map<List<EmployeeDto>>(searchEmployee);
+                return View(searchMapper);
+            }
+            else
+            {
+                var Employees = await _employeeService.GetEmployees();
+                var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
+                return View(EmployeeMapper);
+            }
         }
         public IActionResult Insert()
         {
@@ -60,8 +70,8 @@ namespace Employee.Web.Controllers
             var AddEmployee = await _employeeService.AddEmployee(employeeModel);
             _mapper.Map<EmployeeDto>(AddEmployee);
             TempData["success"] = "Employee Create Successfully.";
-            //return PartialView("_InsertModelView");
-            return RedirectToAction("Index");
+            return PartialView("_InsertModelView");
+            //return RedirectToAction("Index");
         }
         public IActionResult Create()
         {
@@ -100,8 +110,7 @@ namespace Employee.Web.Controllers
             var AddEmployee = await _employeeService.AddEmployee(employeeModel);
             _mapper.Map<EmployeeDto>(AddEmployee);
             TempData["success"] = "Employee Create Successfully.";
-            //return RedirectToAction("Index");
-            return PartialView("_InsertModelView");
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -118,6 +127,10 @@ namespace Employee.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int? id, EmployeeDto employeeDto, IFormFile Image)
         {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
             var getEmployee = await _employeeService.GetEmployeeById(id);
             var getEmployeeMapper = _mapper.Map<EmployeeDto>(getEmployee);
             var oldImage = getEmployeeMapper.Image;
