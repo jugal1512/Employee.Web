@@ -9,7 +9,7 @@
         });
     });
 
-    PlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+    PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
         var url = "/employee/" + actionUrl;

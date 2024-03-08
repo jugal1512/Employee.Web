@@ -44,7 +44,7 @@ namespace Employee.EF.Repositories
 
         public async Task<List<EmployeeModel>> SearchEmployee(string? searchString)
         {
-            Expression<Func<EmployeeModel, bool>> predicate = x => x.FirstName.Contains(searchString);
+            Expression<Func<EmployeeModel, bool>> predicate = x => x.FirstName.Contains(searchString) || x.LastName.Contains(searchString);
             return await _employeeDbContext.Employees.Where(predicate).Include(x => x.Skills).ToListAsync();
         }
 
