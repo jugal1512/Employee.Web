@@ -12,6 +12,7 @@
             <th></th>
             <th>
                 Name
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"><i class="fa-solid fa-sort"></i></a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)

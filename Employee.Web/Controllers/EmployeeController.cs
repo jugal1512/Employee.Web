@@ -18,8 +18,9 @@ namespace Employee.Web.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(string? searchString)
+        public async Task<IActionResult> Index(string? searchString,string sortOrder)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             if (!string.IsNullOrEmpty(searchString))
             {
                 var searchEmployee = await _employeeService.SearchEmployee(searchString);
@@ -30,6 +31,12 @@ namespace Employee.Web.Controllers
             {
                 var Employees = await _employeeService.GetEmployees();
                 var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        EmployeeMapper = EmployeeMapper.OrderBy(x => x.FirstName).ToList();
+                        break;
+                }
                 return View(EmployeeMapper);
             }
         }
