@@ -10,25 +10,43 @@
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
+        debugger
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
-        var url = "/employee/" + actionUrl;
-        var sendData = form.serialize();
-        $.post(url, sendData).done(function (data) {
-            window.location = "/employee/index";
-            PlaceHolderElement.find('.modal').modal('hide');
+        var formData = new FormData(form[0]);
+        var Image = $("#fImage")[0].files[0];
+        formData.append('Image', Image);
+        $.ajax({
+            url: "/employee/" + actionUrl,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location = "/employee/index";
+                PlaceHolderElement.find('.modal').modal('hide');
+            }
         });
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-update"]', function (event) {
+        debugger
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
+        var formData = new FormData(form[0]);
+        var Image = $("#fImage")[0].files[0];
+        formData.append('Image', Image);
         var id = form.attr('employeeId');
-        var url = "/employee/" + actionUrl + "/" + id ;
-        var sendData = form.serialize();
-        $.post(url, sendData).done(function (data) {
-            window.location = "/employee/index";
-            PlaceHolderElement.find('.modal').modal('hide');
+        $.ajax({
+            url: "/employee/" + actionUrl + "/" + id,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location = "/employee/index";
+                PlaceHolderElement.find('.modal').modal('hide');
+            }
         });
     });
 });
