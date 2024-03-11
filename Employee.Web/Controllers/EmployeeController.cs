@@ -18,7 +18,7 @@ namespace Employee.Web.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(string? searchString,string sortOrder)
+        public async Task<IActionResult> Index(string? searchString,string sortOrder,int pg=1)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             if (!string.IsNullOrEmpty(searchString))
@@ -31,13 +31,27 @@ namespace Employee.Web.Controllers
             {
                 var Employees = await _employeeService.GetEmployees();
                 var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
+                const int pageSize = 5;
+                if (pg < 1)
+                {
+                    pg = 1;
+                }
+                int recsCount = EmployeeMapper.Count();
+                var pager = new Pager(recsCount, pg, pageSize);
+                int recSkip = (pg - 1) * pageSize;
+                var data = EmployeeMapper.Skip(recSkip).Take(pager.PageSize).ToList();
+                this.ViewBag.Pager = pager;
                 switch (sortOrder)
                 {
                     case "name_desc":
+                        EmployeeMapper = EmployeeMapper.OrderByDescending(x => x.FirstName).ToList();
+                        break;
+                    default:
                         EmployeeMapper = EmployeeMapper.OrderBy(x => x.FirstName).ToList();
                         break;
                 }
-                return View(EmployeeMapper);
+                return View(data);
+                //return View(EmployeeMapper);
             }
         }
         public IActionResult Insert()
