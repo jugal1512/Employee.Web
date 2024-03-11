@@ -57,7 +57,7 @@
             <td>
                 @Html.ActionLink("","Update","Employee",new{id=item.Id},new {@class="btn fa-solid fa-pen-to-square",@style="color: #e2bd03;"})
                     <button type="button" class="btn bg-white p-2 border-0" data-toggle="ajax-model" data-target="#myModel" data-url="@Url.Action($"Edit/{item.Id}")">
-                        <i class="fa-solid fa-pen-to-square" style="color: #e2bd03;"></i>
+                        <i class="fa-solid fa-pen-to-square" style="color: #e2bd03;">Model</i>
                     </button>
                 <a href="#" onclick=deleteSweetAlert('/employee/delete/@item.Id')><i class="fa-solid fa-trash" style="color: #e00b0b;"></i></a>
             </td>

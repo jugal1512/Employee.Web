@@ -31,6 +31,15 @@ namespace Employee.Web.Controllers
             {
                 var Employees = await _employeeService.GetEmployees();
                 var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        EmployeeMapper = EmployeeMapper.OrderByDescending(x => x.FirstName).ToList();
+                        break;
+                    default:
+                        EmployeeMapper = EmployeeMapper.OrderBy(x => x.FirstName).ToList();
+                        break;
+                }
                 const int pageSize = 5;
                 if (pg < 1)
                 {
@@ -41,15 +50,6 @@ namespace Employee.Web.Controllers
                 int recSkip = (pg - 1) * pageSize;
                 var data = EmployeeMapper.Skip(recSkip).Take(pager.PageSize).ToList();
                 this.ViewBag.Pager = pager;
-                switch (sortOrder)
-                {
-                    case "name_desc":
-                        EmployeeMapper = EmployeeMapper.OrderByDescending(x => x.FirstName).ToList();
-                        break;
-                    default:
-                        EmployeeMapper = EmployeeMapper.OrderBy(x => x.FirstName).ToList();
-                        break;
-                }
                 return View(data);
                 //return View(EmployeeMapper);
             }

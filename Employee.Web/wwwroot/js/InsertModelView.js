@@ -10,7 +10,6 @@
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
-        debugger
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
         var formData = new FormData(form[0]);
@@ -30,7 +29,6 @@
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-update"]', function (event) {
-        debugger
         var form = $(this).parents('.modal').find('form');
         var actionUrl = form.attr('action');
         var formData = new FormData(form[0]);
