@@ -40,7 +40,11 @@
                     <button type="button" class="btn btnExpand"><i class="fa-solid fa-circle-plus"></i></button>
             </td>
             <td>
-                    <img src="~/uploads/@item.Image" class="rounded-circle" height="50px" width="50px"/>
+                    <img src="~/uploads/@item.Image" class="rounded-circle profileImage" height="50px" width="50px" />
+                    <div class="show">
+                        <div class="overlay"></div>
+                        <div class="img-show"><span><i class="fa-solid fa-xmark"></i></span><img src=""></div>
+                    </div>
             </td>
             <td>
                     @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
