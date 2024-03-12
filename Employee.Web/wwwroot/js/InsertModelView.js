@@ -22,7 +22,6 @@
             processData: false,
             contentType: false,
             success: function (data) {
-                window.location = "/employee/index";
                 PlaceHolderElement.find('.modal').modal('hide');
             }
         });
@@ -42,7 +41,6 @@
             processData: false,
             contentType: false,
             success: function (data) {
-                window.location = "/employee/index";
                 PlaceHolderElement.find('.modal').modal('hide');
             }
         });
