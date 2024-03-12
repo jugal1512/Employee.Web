@@ -27,8 +27,7 @@
 
     function ValidationForm()
     {
-        if ($(".employeeForm").valid()){
-            debugger
+        if ($("#employeeForm").valid()){
             return false;
         }
     }
@@ -42,7 +41,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="employeeForm" method="post" action="Insert" enctype="multipart/form-data">
+                    <form id="employeeForm" method="post" action="Insert" enctype="multipart/form-data">
                         <div class="border p-3 mt-4">
                             <div class="row pb-2">
                                 <h2 class="text-primary">Add Employee</h2>

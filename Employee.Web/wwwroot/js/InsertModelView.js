@@ -10,21 +10,25 @@
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
-        var form = $(this).parents('.modal').find('form');
-        var actionUrl = form.attr('action');
-        var formData = new FormData(form[0]);
-        var Image = $("#fImage")[0].files[0];
-        formData.append('Image', Image);
-        $.ajax({
-            url: "/employee/" + actionUrl,
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                PlaceHolderElement.find('.modal').modal('hide');
-            }
-        });
+        debugger
+        var isValidate = ValidationForm();
+        if (isValidate) {
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            var formData = new FormData(form[0]);
+            var Image = $("#fImage")[0].files[0];
+            formData.append('Image', Image);
+            $.ajax({
+                url: "/employee/" + actionUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    PlaceHolderElement.find('.modal').modal('hide');
+                }
+            });
+        }
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-update"]', function (event) {

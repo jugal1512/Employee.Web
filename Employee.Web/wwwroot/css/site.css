@@ -21,7 +21,7 @@ body {
   margin-bottom: 60px;
 }
 
-.employeeForm {
+#employeeForm {
     margin-top: 10px;
     border: 1px solid black;
 }
