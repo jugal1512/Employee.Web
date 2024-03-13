@@ -58,8 +58,7 @@ function deleteSweetAlert(url)
                 url: url,
                 type: 'DELETE',
                 success: function (data) {
-                    window.location = "/employee/index";
-                    toastr.success(data.message);
+                    $('#body').html(data);
                 }
             })
         }

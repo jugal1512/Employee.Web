@@ -10,7 +10,6 @@
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
-        debugger
         var isValidate = ValidationForm();
         if (isValidate) {
             var form = $(this).parents('.modal').find('form');
@@ -25,6 +24,7 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    debugger
                     PlaceHolderElement.find('.modal').modal('hide');
                 }
             });
@@ -47,6 +47,8 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    debugger
+                    $('#body').html(data);
                     PlaceHolderElement.find('.modal').modal('hide');
                 }
             });

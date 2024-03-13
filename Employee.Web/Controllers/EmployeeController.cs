@@ -51,7 +51,6 @@ namespace Employee.Web.Controllers
                 var data = EmployeeMapper.Skip(recSkip).Take(pager.PageSize).ToList();
                 this.ViewBag.Pager = pager;
                 return View(data);
-                //return View(EmployeeMapper);
             }
         }
         public IActionResult Insert()
@@ -64,13 +63,7 @@ namespace Employee.Web.Controllers
         {
             if (Image != null)
             {
-                var newFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-                var path = Path.Combine("wwwroot/uploads/", newFileName);
-                using (var filestream = new FileStream(path, FileMode.Create))
-                {
-                    Image.CopyTo(filestream);
-                }
-                employeeDto.Image = newFileName;
+                employeeDto.Image = await UploadImage(Image);
             }
             List<Skill> SkillItems = new List<Skill>();
             if (!string.IsNullOrEmpty(employeeDto.SkillName))
@@ -92,7 +85,6 @@ namespace Employee.Web.Controllers
             _mapper.Map<EmployeeDto>(AddEmployee);
             TempData["success"] = "Employee Create Successfully.";
             return PartialView("_InsertModelView");
-            //return RedirectToAction("Index");
         }
         public IActionResult Create()
         {
@@ -104,13 +96,7 @@ namespace Employee.Web.Controllers
         {
             if (Image != null)
             {
-                var newFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-                var path = Path.Combine("wwwroot/uploads/",newFileName);
-                using (var filestream = new FileStream(path, FileMode.Create))
-                {
-                    Image.CopyTo(filestream);
-                }
-                employeeDto.Image = newFileName;
+                employeeDto.Image = await UploadImage(Image);
             }
             List<Skill> SkillItems = new List<Skill>();
             if (!string.IsNullOrEmpty(employeeDto.SkillName))
@@ -157,18 +143,8 @@ namespace Employee.Web.Controllers
             var oldImage = getEmployeeMapper.Image;
             if (Image != null)
             {
-                var oldImagepath = Path.Combine("wwwroot/uploads", getEmployeeMapper.Image);
-                if (System.IO.File.Exists(oldImagepath))
-                {
-                    System.IO.File.Delete(oldImagepath);
-                }
-                var newFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-                var path = Path.Combine("wwwroot/uploads/", newFileName);
-                using (var filestream = new FileStream(path, FileMode.Create))
-                {
-                    Image.CopyTo(filestream);
-                }
-                employeeDto.Image = newFileName;
+                await DeleteImagePath(getEmployeeMapper);
+                employeeDto.Image = await UploadImage(Image);
             }
             else
             {
@@ -219,18 +195,8 @@ namespace Employee.Web.Controllers
             var oldImage = getEmployeeMapper.Image;
             if (Image != null)
             {
-                var oldImagepath = Path.Combine("wwwroot/uploads", getEmployeeMapper.Image);
-                if (System.IO.File.Exists(oldImagepath))
-                {
-                    System.IO.File.Delete(oldImagepath);
-                }
-                var newFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-                var path = Path.Combine("wwwroot/uploads/", newFileName);
-                using (var filestream = new FileStream(path, FileMode.Create))
-                {
-                    Image.CopyTo(filestream);
-                }
-                employeeDto.Image = newFileName;
+                await DeleteImagePath(getEmployeeMapper);
+                employeeDto.Image = await UploadImage(Image);
             }
             else
             {
@@ -266,14 +232,30 @@ namespace Employee.Web.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             var deleteEmployee = await _employeeService.DeleteEmployee(id);
-            var oldImagepath = Path.Combine("wwwroot/uploads",deleteEmployee.Image);
+            var deleteMapper = _mapper.Map<EmployeeDto>(deleteEmployee);
+            await DeleteImagePath(deleteMapper);
+            TempData["success"] = "Employee delete Successfully.";
+            return RedirectToAction("Index");
+        }
+
+        private async Task<string> UploadImage(IFormFile Image)
+        {
+            var newFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
+            var path = Path.Combine("wwwroot/uploads/", newFileName);
+            using (var filestream = new FileStream(path, FileMode.Create))
+            {
+                Image.CopyTo(filestream);
+            }
+            return newFileName;
+        }
+
+        private async Task DeleteImagePath(EmployeeDto deleteEmployee)
+        {
+            var oldImagepath = Path.Combine("wwwroot/uploads", deleteEmployee.Image);
             if (System.IO.File.Exists(oldImagepath))
             {
                 System.IO.File.Delete(oldImagepath);
             }
-            var deleteMapper = _mapper.Map<EmployeeDto>(deleteEmployee);
-            TempData["success"] = "Employee delete Successfully.";
-            return RedirectToAction("Index");
         }
     }
 }
