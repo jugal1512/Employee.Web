@@ -21,11 +21,6 @@ body {
   margin-bottom: 60px;
 }
 
-#employeeForm {
-    margin-top: 10px;
-    border: 1px solid black;
-}
-
 #skillAdded {
     padding-left: 1px;
     width: 180px;
