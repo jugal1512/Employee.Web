@@ -9,7 +9,7 @@ namespace Employee.Domain.Employee
 {
     public interface IEmployeeRepository
     {
-        public Task<List<EmployeeModel>> GetEmployees();
+        public Task<List<EmployeeModel>> GetEmployees(string sortOrder);
         public Task<EmployeeModel> GetEmployeeById(int? id);
         public Task<EmployeeModel> AddEmployee(EmployeeModel employeeModel);
         public Task<EmployeeModel> DeleteEmployee(int? id);

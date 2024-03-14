@@ -13,7 +13,7 @@
     }
 }
 <div id="PlaceHolderHere"></div>
-<table id="tblEmployee" class=" table table text-center">
+<table id="tblEmployee" class=" table text-center">
     <thead>
         <tr>
             <th></th>
@@ -34,57 +34,13 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                    <button type="button" class="btn btnExpand"><i class="fa-solid fa-circle-plus"></i></button>
-            </td>
-            <td>
-                    <img src="~/uploads/@item.Image" class="rounded-circle profileImage" height="50px" width="50px" />
-                    <div class="show">
-                        <div class="overlay"></div>
-                        <div class="img-show"><span><i class="fa-solid fa-xmark"></i></span><img src=""></div>
-                    </div>
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Designation)
-            </td>
-            <td>
-                    @Html.ActionLink("","Update","Employee",new{id=item.Id},new {@class="btn bg-primary fa-solid fa-pen-to-square",@style="color: #e2bd03;"})
-                    <button type="button" class="btn bg-primary p-2 border-0" data-toggle="ajax-model" data-target="#myModel" data-url="@Url.Action($"Edit/{item.Id}")">
-                        <i class="fa-solid fa-pen-to-square" style="color: #e2bd03;">Model</i>
-                    </button>
-                <a class="btn bg-primary" href="#" onclick=deleteSweetAlert('/employee/delete/@item.Id')><i class="fa-solid fa-trash" style="color: #e00b0b;"></i></a>
-            </td>
-        </tr>
-            <tr class="hiddenRow">
-                <td>
-                    <strong>@Html.LabelFor(modelItem => item.Description) :-</strong>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <strong>@Html.LabelFor(modelItem => item.DOB) :-</strong>
-                    @Html.DisplayFor(modelItem => item.DOB)
-                </td>
-                <td>
-                    <strong>@Html.LabelFor(modelItem => item.JoiningDate) :-</strong>
-                    @Html.DisplayFor(modelItem => item.JoiningDate)
-                </td>
-                <td>
-                    <strong>@Html.LabelFor(modelItem => item.SkillName) :-</strong>
-                    @Html.DisplayFor(modelItem => item.SkillName)
-                </td>
-            </tr>
-}
+
     </tbody>
 </table>
-<partial name="_Pager" model="@pager" />
+<div id="paginationTable"></div>
+@section scripts{
+    <script src="~/js/load.js"></script>
+    <script src="~/lib/jquery/dist/pagination.js"></script>
+    <script src="~/lib/jquery/dist/pagination.min.js"></script>
+    <link href="~/lib/bootstrap/dist/css/pagination.css" rel="stylesheet" />
+}

@@ -24,6 +24,22 @@ $(document).ready(function () {
         let icon = $(this).find('i');
         icon.toggleClass('fa-circle-plus fa-circle-minus');
     });
+    $("#fImage").change(function () {
+        const [file] = fImage.files;
+        if (file) {
+            previewImage.src = URL.createObjectURL(file);
+        }
+    });
+
+    $(".profileImage").click(function () {
+        var $src = $(this).attr("src");
+        $(".show").fadeIn();
+        $(".img-show img").attr("src", $src);
+    });
+
+    $("span, .overlay").click(function () {
+        $(".show").fadeOut();
+    });
 });
 
 function updateSkills(item) {
@@ -64,22 +80,3 @@ function deleteSweetAlert(url)
         }
     });
 }
-
-$(document).ready(function () {
-    $("#fImage").change(function () {
-        const [file] = fImage.files;
-        if (file) {
-            previewImage.src = URL.createObjectURL(file);
-        }
-    });
-
-    $(".profileImage").click(function () {
-        var $src = $(this).attr("src");
-        $(".show").fadeIn();
-        $(".img-show img").attr("src", $src);
-    });
-
-    $("span, .overlay").click(function () {
-        $(".show").fadeOut();
-    });
-});

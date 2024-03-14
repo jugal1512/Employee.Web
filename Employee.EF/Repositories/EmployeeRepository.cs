@@ -37,9 +37,19 @@ namespace Employee.EF.Repositories
             return await _employeeDbContext.Employees.AsNoTracking().Where(e => e.Id == id).Include(x => x.Skills).FirstOrDefaultAsync();
         }
 
-        public async Task<List<EmployeeModel>> GetEmployees()
+        public async Task<List<EmployeeModel>> GetEmployees(string sortOrder)
         {
-            return await _employeeDbContext.Employees.AsNoTracking().Include(x => x.Skills).ToListAsync();
+            var employees = await _employeeDbContext.Employees.AsNoTracking().Include(x => x.Skills).ToListAsync();
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(x => x.FirstName).ToList();
+                    break;
+                default:
+                    employees = employees.OrderBy(x => x.FirstName).ToList();
+                    break;
+            }
+            return employees;
         }
 
         public async Task<List<EmployeeModel>> SearchEmployee(string? searchString)

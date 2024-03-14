@@ -82,3 +82,8 @@ body {
     z-index: 99;
     cursor: pointer;
 }
+
+#paginationTable {
+    float: right;
+    margin-right: 50px;
+}

@@ -30,9 +30,9 @@ namespace Employee.Domain.Employee
             return await _employeeRepository.GetEmployeeById(id);
         }
 
-        public async Task<List<EmployeeModel>> GetEmployees()
+        public async Task<List<EmployeeModel>> GetEmployees(string sortOrder)
         {
-            return await _employeeRepository.GetEmployees();
+            return await _employeeRepository.GetEmployees(sortOrder);
         }
 
         public Task<List<EmployeeModel>> SearchEmployee(string? searchString)
