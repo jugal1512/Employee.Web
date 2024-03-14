@@ -24,7 +24,7 @@ function load() {
                         employeeData += "<td>" + employee.email + "</td>";
                         employeeData += "<td>" + employee.designation + "</td>";
                         employeeData += "<td>" + employee.gender + "</td>";
-                        employeeData += "<td>" + '<button id="' + employee.id + '" class="btn btnUpdate"><i class="fa-solid fa-pen" style="color: #e6c805;"></i></button> <button type="button" id="' + employee.id + '" class="btn btnDelete ms-3" ><i class="fa-solid fa-trash" style="color: #e30d0d;"></i></button> ' + "</td>";
+                        employeeData += "<td><a class='btn bg - primary' onclick=deleteSweetAlert('/employee/delete/"+employee.id+"')><i class='fa-solid fa-trash' style='color: #e00b0b;'></i></a></td>";
                         employeeData += "</tr>";
                         employeeData += "<tr class='hiddenRow' style='display: none;'>";
                         employeeData += "<td></td>";

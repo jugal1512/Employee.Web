@@ -43,10 +43,6 @@ body {
     top: 10px;
 }
 
-.hiddenRow {
-    display: none;
-}
-
 .profileImage {
     cursor: pointer
 }

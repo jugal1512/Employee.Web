@@ -54,7 +54,7 @@
 .paginationjs .paginationjs-pages li.active > a {
   height: 30px;
   line-height: 30px;
-  background: rgb(15, 85, 235);
+  background: black;
   color: #fff;
   cursor: default;
 }

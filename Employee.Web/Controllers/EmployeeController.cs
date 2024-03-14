@@ -43,7 +43,7 @@ namespace Employee.Web.Controllers
             {
                 var searchEmployee = await _employeeService.SearchEmployee(searchString);
                 var searchMapper = _mapper.Map<List<EmployeeDto>>(searchEmployee);
-                return View(searchMapper);
+                return Json(searchMapper);
             }
             else
             {

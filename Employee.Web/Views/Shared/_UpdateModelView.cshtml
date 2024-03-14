@@ -28,7 +28,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body rounded-circle" style="background-color:lightblue">
-                    <form method="post" action="Edit" employeeId="@(Model != null?Model.Id:null)" enctype="multipart/form-data">
+                    <form id="employeeForm" method="post" action="Edit" employeeId="@(Model != null?Model.Id:null)" enctype="multipart/form-data">
                         <div class="border p-3 mt-4">
                             <div class="row g-3">
                                 <div class="col-md-6">
