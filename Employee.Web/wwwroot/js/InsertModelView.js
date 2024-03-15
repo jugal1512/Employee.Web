@@ -3,10 +3,16 @@
     $('button[data-toggle="ajax-model"]').click(function (event) {
         var url = $(this).data('url');
         var decodeUrl = decodeURIComponent(url);
-        $.get(decodeUrl).done(function (data) {
-            PlaceHolderElement.html(data);
-            PlaceHolderElement.find('.modal').modal('show');
-        });
+        $.ajax({
+            url: decodeUrl,
+            type: "GET",
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            }
+        })
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
@@ -24,9 +30,8 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    debugger
-                    load();
                     PlaceHolderElement.find('.modal').modal('hide');
+                    load();
                 }
             });
         }
@@ -51,6 +56,7 @@
                     debugger
                     $('#body').html(data);
                     PlaceHolderElement.find('.modal').modal('hide');
+                    load();
                 }
             });
         }

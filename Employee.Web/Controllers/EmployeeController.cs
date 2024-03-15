@@ -18,21 +18,9 @@ namespace Employee.Web.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(string? searchString,string sortOrder)
+        public IActionResult Index()
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                var searchEmployee = await _employeeService.SearchEmployee(searchString);
-                var searchMapper = _mapper.Map<List<EmployeeDto>>(searchEmployee);
-                return View(searchMapper);
-            }
-            else
-            {
-                var Employees = await _employeeService.GetEmployees(sortOrder);
-                var EmployeeMapper = _mapper.Map<List<EmployeeDto>>(Employees);
-                return View(EmployeeMapper);
-            }
+            return View();
         }
 
         [HttpGet]
@@ -52,7 +40,6 @@ namespace Employee.Web.Controllers
                 return Json(EmployeeMapper);
             }
         }
-
 
         public IActionResult Insert()
         {

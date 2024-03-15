@@ -3,24 +3,19 @@
 });
 
 function load() {
-    debugger
     $.ajax({
         url: "employee/getallemployees",
         type: 'GET',
         dataType: 'json',
-        success: function (response, index) {
+        success: function (result) {
             $('#paginationTable').pagination({
-                debugger
-                dataSource: response,
+                dataSource: result,
                 pageSize: 5,
                 pageRange: null,
-                showPageNumbers: true,
-                callback: function (response, pagination) {
-                    debugger
+                callback: function (result, pagination) {
                     let employeeData = "";
                     $('#tblEmployee tbody').empty();
-                    response.forEach(function (employee) {
-                        debugger
+                    result.forEach(function (employee) {
                         employeeData += "<tr>";
                         employeeData += "<td><button class='btn btnExpand' type='button'><i class='fa-solid fa-circle-plus'></i></button></td>";
                         employeeData += "<td>" + '<img class="rounded-circle profileImage" src="uploads/' + employee.image + '" alt="" height="50px" width="50px" />' + "</td>";
@@ -28,7 +23,7 @@ function load() {
                         employeeData += "<td>" + employee.email + "</td>";
                         employeeData += "<td>" + employee.designation + "</td>";
                         employeeData += "<td>" + employee.gender + "</td>";
-                        employeeData += "<td><a class='btn bg - primary' onclick=deleteSweetAlert('/employee/delete/"+employee.id+"')><i class='fa-solid fa-trash' style='color: #e00b0b;'></i></a></td>";
+                        employeeData += "<td><a href='employee/update/" + employee.id + "' class='btn bg-primary mx-2'><i class='fa-solid fa-pen-to-square' style='color: #e2bd03;'></i></a>            <a class='btn bg-primary' onclick=deleteSweetAlert('/employee/delete/"+employee.id+"')><i class='fa-solid fa-trash' style='color: #e00b0b;'></i></a></td>";
                         employeeData += "</tr>";
                         employeeData += "<tr class='hiddenRow' style='display: none;'>";
                         employeeData += "<td></td>";
