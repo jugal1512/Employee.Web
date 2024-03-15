@@ -74,7 +74,8 @@ function deleteSweetAlert(url)
                 url: url,
                 type: 'DELETE',
                 success: function (data) {
-                    $('#body').html(data);
+                    debugger
+                    load();
                 }
             })
         }

@@ -24,6 +24,8 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    debugger
+                    load();
                     PlaceHolderElement.find('.modal').modal('hide');
                 }
             });

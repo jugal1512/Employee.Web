@@ -3,20 +3,24 @@
 });
 
 function load() {
+    debugger
     $.ajax({
         url: "employee/getallemployees",
         type: 'GET',
         dataType: 'json',
         success: function (response, index) {
             $('#paginationTable').pagination({
+                debugger
                 dataSource: response,
                 pageSize: 5,
                 pageRange: null,
                 showPageNumbers: true,
                 callback: function (response, pagination) {
+                    debugger
                     let employeeData = "";
                     $('#tblEmployee tbody').empty();
                     response.forEach(function (employee) {
+                        debugger
                         employeeData += "<tr>";
                         employeeData += "<td><button class='btn btnExpand' type='button'><i class='fa-solid fa-circle-plus'></i></button></td>";
                         employeeData += "<td>" + '<img class="rounded-circle profileImage" src="uploads/' + employee.image + '" alt="" height="50px" width="50px" />' + "</td>";
