@@ -12,7 +12,7 @@
                 PlaceHolderElement.html(data);
                 PlaceHolderElement.find('.modal').modal('show');
             }
-        })
+        });
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
@@ -53,8 +53,6 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    debugger
-                    $('#body').html(data);
                     PlaceHolderElement.find('.modal').modal('hide');
                     load();
                 }
