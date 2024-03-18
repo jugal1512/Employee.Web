@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    load('','');
     $('#btnsearch').click(function (e) {
         e.preventDefault();
         var searchString = $('#inputSearch').val();
@@ -18,7 +19,7 @@
             type: 'GET',
             data: { searchString: searchString, sortOrder :sortOrder},
             dataType: 'json',
-            success: function (result) {
+            success: function (result) {     
                 $('#paginationTable').pagination({
                     dataSource: result,
                     pageSize: 5,
