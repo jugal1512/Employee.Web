@@ -18,10 +18,10 @@
         <nav class="navbar navbar bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand text-white">Employee</a>
-                <form asp-controller="Employee" asp-action="Index">
+                <form>
                     <div class="btn-group" role="group">
                         <input type="text" id="inputSearch" name="searchString" class="insearch border-0" />
-                        <button type="submit" id="btnsearch" class="btn">
+                        <button type="submit" id="btnsearch" class="btn" asp-controller="Employee" asp-action="getAllEmployees">
                             <i class="fa-solid fa-magnifying-glass" style="color: #f0f2f5;"></i>
                         </button>
                 </form>

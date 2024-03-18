@@ -12,7 +12,7 @@
             <th></th>
             <th>
                 Name
-                <a asp-route-sortOrder="@ViewBag.NameSortParm"><i class="fa-solid fa-sort"></i></a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParm"><i class="fa-solid fa-sort"></i></a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -26,11 +26,10 @@
         </tr>
     </thead>
     <tbody>
-
     </tbody>
 </table>
 <div id="paginationTable"></div>
-@section scripts{
+@section scripts {
     <script src="~/js/load.js"></script>
     <script src="~/lib/jquery/dist/pagination.js"></script>
     <script src="~/lib/jquery/dist/pagination.min.js"></script>
