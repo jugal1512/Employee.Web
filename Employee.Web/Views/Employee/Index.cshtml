@@ -11,8 +11,9 @@
             <th></th>
             <th></th>
             <th>
+                <input type="hidden" id="sortOrder" name="sortOrder" value="@ViewBag.NameSortParm" />
                 Name
-                <a asp-route-sortOrder="@ViewBag.NameSortParm"><i class="fa-solid fa-sort"></i></a>
+                <a id="sortName" asp-route-sortOrder="@ViewBag.NameSortParm"><i class="fa-solid fa-sort"></i></a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)

@@ -1,16 +1,30 @@
 ﻿$(document).ready(function () {
     load();
-    function load() {
+    $('#btnsearch').click(function (e) {
+        e.preventDefault();
+        var searchString = $('#inputSearch').val();
+        var sortOrder = $('#sortOrder').val();
+        load(searchString, sortOrder);
+    });
+
+    $('#sortName').click(function (e) {
+        e.preventDefault();
+        var sortOrder = $('#sortOrder').val() === "name_desc" ? "" : "name_desc";
+        $('#sortOrder').val(sortOrder)
+        load($('#inputSearch').val(), sortOrder);
+    });
+    function load(searchString, sortOrder) {
         $.ajax({
             url: "employee/getallemployees",
             type: 'GET',
+            data: { searchString: searchString, sortOrder :sortOrder},
             dataType: 'json',
             success: function (result) {
                 $('#paginationTable').pagination({
                     dataSource: result,
                     pageSize: 5,
                     pageRange: null,
-                    callback: function (result, pagination) {
+                    callback: function (result,pagination) {
                         let employeeData = "";
                         $('#tblEmployee tbody').empty();
                         result.forEach(function (employee) {
@@ -53,5 +67,3 @@
         });
     }
 });
-
-
