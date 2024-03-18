@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    load();
     $('#btnsearch').click(function (e) {
         e.preventDefault();
         var searchString = $('#inputSearch').val();

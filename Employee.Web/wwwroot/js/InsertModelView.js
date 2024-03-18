@@ -12,7 +12,7 @@
                 PlaceHolderElement.html(data);
                 PlaceHolderElement.find('.modal').modal('show');
             }
-        });
+        })
     });
 
     PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
@@ -31,7 +31,6 @@
                 contentType: false,
                 success: function (data) {
                     PlaceHolderElement.find('.modal').modal('hide');
-                    load();
                 }
             });
         }
@@ -54,7 +53,6 @@
                 contentType: false,
                 success: function (data) {
                     PlaceHolderElement.find('.modal').modal('hide');
-                    load();
                 }
             });
         }
