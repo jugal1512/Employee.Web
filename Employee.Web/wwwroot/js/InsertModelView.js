@@ -31,6 +31,7 @@
                 contentType: false,
                 success: function (data) {
                     PlaceHolderElement.find('.modal').modal('hide');
+                    load('', '');
                 }
             });
         }
@@ -53,6 +54,7 @@
                 contentType: false,
                 success: function (data) {
                     PlaceHolderElement.find('.modal').modal('hide');
+                    load('', '');
                 }
             });
         }
