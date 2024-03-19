@@ -60,6 +60,7 @@ function hiddenSkill() {
 }
 function deleteSweetAlert(url)
 {
+    debugger
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -74,9 +75,15 @@ function deleteSweetAlert(url)
                 url: url,
                 type: 'DELETE',
                 success: function (data) {
+                    debugger
+                    Swal.fire({
+                        title: "Thank You!",
+                        text: "Delete Successfully.",
+                        icon: "success"
+                    });
                     load('', '');
                 }
-            })
+            });
         }
     });
 }

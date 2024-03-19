@@ -223,7 +223,7 @@ namespace Employee.Web.Controllers
             var deleteMapper = _mapper.Map<EmployeeDto>(deleteEmployee);
             await DeleteImagePath(deleteMapper);
             TempData["success"] = "Employee delete Successfully.";
-            return RedirectToAction("Index");
+            return Json(deleteMapper);
         }
 
         private async Task<string> UploadImage(IFormFile Image)

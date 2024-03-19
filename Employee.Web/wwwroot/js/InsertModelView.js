@@ -32,6 +32,11 @@
                 success: function (data) {
 
                     PlaceHolderElement.find('.modal').modal('hide');
+                    Swal.fire({
+                        title: "Thank You!",
+                        text: "Insert Successfully.",
+                        icon: "success"
+                    });
                     load('', '');
                 }
             });
@@ -55,6 +60,11 @@
                 contentType: false,
                 success: function (data) {
                     PlaceHolderElement.find('.modal').modal('hide');
+                    Swal.fire({
+                        title: "Thank You!",
+                        text: "Update Successfully.",
+                        icon: "success"
+                    });
                     load('', '');
                 }
             });
