@@ -13,7 +13,7 @@
             <th>
                 <input type="hidden" id="sortOrder" name="sortOrder"/>
                 Name
-                <a id="sortName" asp-route-sortOrder="@ViewBag.NameSortParm"><i class="fa-solid fa-sort"></i></a>
+                <a id="sortName"><i class="fa-solid fa-sort"></i></a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -31,9 +31,3 @@
     </tbody>
 </table>
 <div id="paginationTable"></div>
-@section scripts {
-    <script src="~/lib/jquery/dist/pagination.js"></script>
-    <script src="~/lib/jquery/dist/pagination.min.js"></script>
-    <script src="~/js/load.js"></script>
-    <link href="~/lib/bootstrap/dist/css/pagination.css" rel="stylesheet" />
-}

@@ -27,7 +27,6 @@ namespace Employee.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> getAllEmployees(string? searchString, string sortOrder)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             if (!string.IsNullOrEmpty(searchString))
             {
                 var searchEmployee = await _employeeService.SearchEmployee(searchString);

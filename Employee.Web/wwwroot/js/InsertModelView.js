@@ -30,6 +30,7 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
+
                     PlaceHolderElement.find('.modal').modal('hide');
                     load('', '');
                 }

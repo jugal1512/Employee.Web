@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="~/Employee.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-    <script src="~/js/Common.js" asp-append-version="true"></script>
-    <script src="~/js/InsertModelView.js" asp-append-version="true"></script>
 </head>
 <body id="body">
     <header>
@@ -46,8 +44,12 @@
             Made With <i class="fa-solid fa-heart" style="color: #ea0606;"></i> by Jugal
         </div>
     </footer>
+    <script src="~/lib/jquery/dist/pagination.js"></script>
+    <link href="~/lib/bootstrap/dist/css/pagination.css" rel="stylesheet" />
+    <script src="~/js/load.js"></script>
+    <script src="~/js/Common.js" asp-append-version="true"></script>
+    <script src="~/js/InsertModelView.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
