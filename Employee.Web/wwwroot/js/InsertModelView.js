@@ -11,7 +11,6 @@ function onenCloseModal(url)
                 PlaceHolderElement.find('.modal').modal('show');
             }
         })
-    /*});*/
 }
 
 function Upsert(url) {
