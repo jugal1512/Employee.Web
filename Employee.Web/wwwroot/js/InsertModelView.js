@@ -15,35 +15,8 @@
         })
     });
 
-    PlaceHolderElement.on('click', '[data-save="modal-insert"]', function (event) {
-        var isValidate = ValidationForm();
-        if (isValidate) {
-            var form = $(this).parents('.modal').find('form');
-            var actionUrl = form.attr('action');
-            var formData = new FormData(form[0]);
-            var Image = $("#fImage")[0].files[0];
-            formData.append('Image', Image);
-            $.ajax({
-                url: "/employee/" + actionUrl,
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-
-                    PlaceHolderElement.find('.modal').modal('hide');
-                    Swal.fire({
-                        title: "Thank You!",
-                        text: "Insert Successfully.",
-                        icon: "success"
-                    });
-                    load('', '');
-                }
-            });
-        }
-    });
-
-    PlaceHolderElement.on('click', '[data-save="modal-update"]', function (event) {
+    PlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+        debugger
         var isValidate = ValidationForm();
         if (isValidate) {
             var form = $(this).parents('.modal').find('form');
@@ -52,17 +25,24 @@
             var Image = $("#fImage")[0].files[0];
             formData.append('Image', Image);
             var id = form.attr('employeeId');
+            if (id != null) {
+                var url = "/employee/" + actionUrl + "/" + id;
+            }
+            else {
+                var url = "/employee/" + actionUrl;
+            }
             $.ajax({
-                url: "/employee/" + actionUrl + "/" + id,
+                url: url,
                 type: "POST",
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    debugger
                     PlaceHolderElement.find('.modal').modal('hide');
                     Swal.fire({
                         title: "Thank You!",
-                        text: "Update Successfully.",
+                        text: "Save Successfully.",
                         icon: "success"
                     });
                     load('', '');
