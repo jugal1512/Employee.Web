@@ -27,7 +27,7 @@
                 <a class="btn bg-white p-2 border-0 mx-2" asp-controller="Employee" asp-action="Create">
                     <i class="fa-solid fa-circle-plus"></i> Add New Employee
                 </a>
-                <button type="button" class="btn bg-white p-2 border-0 mx-2" data-toggle="ajax-model" data-target="#myModel" data-url="@Url.Action("Insert")">
+                <button type="button" class="btn bg-white p-2 border-0 mx-2" onclick="onenCloseModal('/employee/Insert')">
                     <i class="fa-solid fa-circle-plus"></i> Add New Employee(Model)
                 </button>
             </div>

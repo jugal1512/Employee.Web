@@ -70,9 +70,10 @@ namespace Employee.Web.Controllers
             var employeeModel = _mapper.Map<EmployeeModel>(employeeDto);
             employeeModel.Skills = SkillItems;
             var AddEmployee = await _employeeService.AddEmployee(employeeModel);
-            _mapper.Map<EmployeeDto>(AddEmployee);
+            var AddEmployeeMapper = _mapper.Map<EmployeeDto>(AddEmployee);
             TempData["success"] = "Employee Create Successfully.";
-            return PartialView("_InsertModelView");
+            //return PartialView("_InsertModelView");
+            return Json(AddEmployeeMapper);
         }
         public IActionResult Create()
         {
@@ -159,9 +160,10 @@ namespace Employee.Web.Controllers
             var employeeModel = _mapper.Map<EmployeeModel>(employeeDto);
             employeeModel.Skills = SkillItems;
             var updateEmployee = await _employeeService.UpdateEmployee(id, employeeModel);
-            _mapper.Map<EmployeeDto>(updateEmployee);
+            var updateEmployeeMapper = _mapper.Map<EmployeeDto>(updateEmployee);
             TempData["success"] = "Employee Update Successfully.";
-            return PartialView("_UpdateModelView");
+            //return PartialView("_UpdateModelView");
+            return Json(updateEmployeeMapper);
         }
 
         public async Task<IActionResult> Update(int? id)
