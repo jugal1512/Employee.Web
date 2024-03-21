@@ -14,10 +14,8 @@ function onenCloseModal(url)
 }
 
 function Upsert(url) {
-    debugger
         var isValidate = ValidationForm();
         if (isValidate) {
-            debugger
             var form = PlaceHolderElement.find('form');
             var formData = new FormData(form[0]);
             var Image = $("#fImage")[0].files[0];
@@ -29,7 +27,6 @@ function Upsert(url) {
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    debugger
                     PlaceHolderElement.find('.modal').modal('hide');
                     Swal.fire({
                         title: "Thank You!",

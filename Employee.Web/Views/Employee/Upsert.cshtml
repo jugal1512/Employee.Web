@@ -4,12 +4,11 @@
 @{
     ViewData["Title"] = "Create";
 }
-
 <div class="container-fluid rounded-circle" style="background-color:lightblue">
 <form class="employeeForm" method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary">Update Employee</h2>
+                <h2 class="text-primary">@(Model != null ? "Update" : "Add") Employee</h2>
             </hr>
         </div>
         <div class="row g-3">
@@ -104,7 +103,15 @@
                     </div>
                     <div class="col-9">
                         @Html.TextBoxFor(m => m.Image ,new {type="file",@id="fImage"})</br>
-                        <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
+                        @if (Model != null)
+                        {
+                            <img id="previewImage" src="~/uploads/@Model.Image" alt="Profile photo" height="100px" width="100px">
+                        }
+                        else
+                        {
+                            <img id="previewImage" src="#" alt="Profile photo" height="100px" width="100px">
+                        }
+                        @Html.ValidationMessageFor(m => m.Image, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -120,13 +127,13 @@
                         <input type="text" id="txtSkill">
                         <button type="button" id="btnAdd" class="p-2">Add</button>
                         <ul id="skillAdded">
-                        @if (Model != null)
-                        {
-                            @foreach (var item in Model.Skills)
+                            @if(Model != null)
                             {
-                                <script>updateSkills(`@item`)</script>
+                                @foreach (var item in Model.Skills)
+                                {
+                                    <script>updateSkills(`@item`)</script>
+                                }
                             }
-                        }
                         </ul>
                     </div>
                 </div>
@@ -150,7 +157,6 @@
     </div>
 </form>
 </div>
-
 @section scripts{
     <partial name="_ValidationScriptsPartial" />
 }

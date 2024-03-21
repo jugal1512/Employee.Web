@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/Employee.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="~/js/insertmodelview.js"></script>
     <script src="~/js/Common.js" asp-append-version="true"></script>
     <script src="~/js/ModelValidation.js"></script>
 </head>
@@ -22,11 +23,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Employee</h5>
+                    <h5 class="modal-title">@(Model != null ? "Update" : "Add") Employee</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body rounded-circle" style="background-color:lightblue">
-                    <form id="employeeForm" method="post" action="Edit" employeeId="@(Model != null?Model.Id:null)" enctype="multipart/form-data">
+                    <form id="employeeForm" method="post" action="Insert" enctype="multipart/form-data">
                         <div class="border p-3 mt-4">
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -168,7 +169,14 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="btnSave" type="button" class="btn btn-info" onclick="Upsert('/employee/Edit/@(Model != null?Model.Id:null)')">Save</button>
+                                @if (Model != null)
+                                {
+                                    <button id="btnSave" type="button" class="btn btn-info" onclick="Upsert('/employee/UpsertModel/@(Model != null?Model.Id:null)')">Save</button>
+                                }
+                                else
+                                {
+                                    <button id="btnSave" type="button" class="btn btn-info" onclick="Upsert('/employee/UpsertModel')">Save</button>
+                                }
                                 <button type="button" class="btn btn-outline-secondary mx-2" data-bs-dismiss="modal" aria-label="Close">Back To List</button>
                             </div>
                         </div>
