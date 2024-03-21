@@ -220,7 +220,6 @@ namespace Employee.Web.Controllers
             var deleteEmployee = await _employeeService.DeleteEmployee(id);
             var deleteMapper = _mapper.Map<EmployeeDto>(deleteEmployee);
             await DeleteImagePath(deleteMapper);
-            TempData["success"] = "Employee delete Successfully.";
             return Json(deleteMapper);
         }
 
