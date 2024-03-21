@@ -14,11 +14,12 @@ function onenCloseModal(url)
 }
 
 function Upsert(url) {
+    debugger
     PlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
         var isValidate = ValidationForm();
         if (isValidate) {
+            debugger
             var form = $(this).parents('.modal').find('form');
-
             var formData = new FormData(form[0]);
             var Image = $("#fImage")[0].files[0];
             formData.append('Image', Image);
@@ -29,6 +30,7 @@ function Upsert(url) {
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    debugger
                     PlaceHolderElement.find('.modal').modal('hide');
                     Swal.fire({
                         title: "Thank You!",
